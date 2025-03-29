@@ -10,11 +10,15 @@ school: SPSE Jecna
 This simple network classifier tightly works with the NEMEA framework by CESNET. It provides several different models to accomplish the task. By default, the best one is chosen.           
 It simply classifies 443 services only by first 30 packets from the communication.
 
-# Directory structure
+# Directory Structure
 
 The **top directory** contains the setup and start application scripts         
 The **jupyter_scripts** directory contains the jupyter notebooks for training the model and processing of the data. It also contains two json files, *classes_mapping.json* and *classes.json*. The first file contains mapping of every class in this format *class_number: class_name*. The second containes containes keyword and classes to map to that keywords in this format *keyword: class_name*.              
 The **src** directory contains all the modules, models and also, for practical reasons, a copy of *classes.json* file. This file is used to convert the numerical prediction a to particular service. It is here, because the file path is more practical for the modules. All the models are in the *models* directory;
+
+Some models are too big for Github. Also some data may also be too big. I have thus put it onto this Google drive: https://drive.google.com/drive/folders/1XcOfXqXIrEK_SFA2j5aLiGlSPVSBf_c2?usp=drive_link          
+
+You can download all the models and some datasets there. I purposefully have not included the CESNET dataset in order to keep it secret.
 
 ## Datasets
 
@@ -131,7 +135,6 @@ Then just do:
 ### Exceptions and errors
 
 You can enter invalid data into the config file. The script will simply tell you and force you to rewrite them
-
 
 # Application diagram
 
