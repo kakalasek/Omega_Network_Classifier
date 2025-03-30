@@ -110,10 +110,10 @@ We also need to specify the network interface we want to monitor
 After setting up our vm, we can run:
 
 ```Bash
-./start_application_logger.sh <network_interface_name>
+sudo ./start_application_logger.sh <network_interface_name>
 ```
 
-Since starting Ipfixprobe needs sudo privileges, you will be asked to enter your password. Then you will probably need to wait a while until the system starts to log something, since Ipfixprobe first needs to catch some packets in order to return some flows.              
+You will probably need to wait a while until the system starts to log something, since Ipfixprobe first needs to catch some packets in order to return some flows.              
 After some time the system should start to log in this format: *TIMESTAMP,DST_IP,SRC_IP,CLASS*
 
 ## Run with network aggregator
@@ -129,7 +129,7 @@ There is also **filepath**, which is the path to a file you want to save the out
 Then just do:
 
 ```Bash
-./start_flowaggregator.sh <network_interface_name>
+sudo ./start_flowaggregator.sh <network_interface_name>
 ```
 
 ### Exceptions and errors
