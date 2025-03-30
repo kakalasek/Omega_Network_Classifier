@@ -162,3 +162,7 @@ Cesnet Nemea-pytrap documentation - https://nemea.liberouter.org/doc/pytrap/inde
 All other modules used are also a part of the NEMEA project       
 Training script for decision tree algorithms from Mgr. Mykyta Narusevych - *I decided not to publish this script here*         
 Scripts from Python for Data Science course from Netacad FEL - *I cant publish those scripts here*
+
+# Known Bugs and Imperfections
+
+When executing the start script multiple times, there may be several unirec filters running in the background. You can easily just kill them all.
