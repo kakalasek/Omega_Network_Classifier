@@ -161,7 +161,8 @@ Cesnet Ipfixprobe documentation on Github Pages - https://cesnet.github.io/ipfix
 Cesnet Nemea-pytrap documentation - https://nemea.liberouter.org/doc/pytrap/index.html          
 All other modules used are also a part of the NEMEA project       
 Training script for decision tree algorithms from Mgr. Mykyta Narusevych - *I decided not to publish this script here*         
-Scripts from Python for Data Science course from Netacad FEL - *I cant publish those scripts here*
+Scripts from Python for Data Science course from Netacad FEL - *I cant publish those scripts here*          
+Build a neural network in Python multi class classification - https://medium.com/luca-chuangs-bapm-notes/build-a-neural-network-in-python-multi-class-classification-e940f74bd899
 
 # Known Bugs and Imperfections
 
