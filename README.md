@@ -129,12 +129,12 @@ There is also **filepath**, which is the path to a file you want to save the out
 Then just do:
 
 ```Bash
-./start_flowaggregator.sh
+./start_flowaggregator.sh <network_interface_name>
 ```
 
 ### Exceptions and errors
 
-You can enter invalid data into the config file. The script will simply tell you and force you to rewrite them
+You can enter invalid data into the config file. The script will simply tell you and force you to rewrite them          
 
 # Application diagram
 
