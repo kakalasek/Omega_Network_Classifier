@@ -53,6 +53,8 @@ def do_classification(rec):
 
         trap.send(output.getData(), 0)
 
+# Main loop
+
 while True:
     try:
         data = trap.recv()
