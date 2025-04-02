@@ -46,6 +46,7 @@ def do_classification(rec):
 
         traffic_class = class_mapping[prediction]
 
+        output.TIME_FIRST = rec.TIME_FIRST
         output.SRC_IP = rec.SRC_IP
         output.DST_IP = rec.DST_IP
         output.CLASS = traffic_class
