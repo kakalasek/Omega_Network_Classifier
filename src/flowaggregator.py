@@ -7,13 +7,13 @@ import yaml
 import os
 from ipaddress import ip_address
 
-def aggregate(rec, agg_dict: dict, write: int, agg_file: str):
+def aggregate(rec, agg_dict: dict, write: bool, agg_file: str):
     """This function aggregates the flow data into one dictionary file
 
     Args:
         rec (UnirecTemplate): Contains all the data needed for aggregation
         agg_dict (dict): The dictionary which is used for aggregation
-        write (int): If the dictionary should be written to file
+        write (bool): If the dictionary should be written to file
         agg_file (str): The path of the aggregation file
     """
 
@@ -38,12 +38,18 @@ with open("config.yaml", "r") as ymlfile:
     cfg = yaml.load(ymlfile)
 
 if not isinstance(cfg["write"], int):
-    raise SystemExit("You must specify 'write' as a positive integer")
+    print("The 'write' configuration variable needs to be a number")
+    sys.exit(3)
+elif cfg["write"] <= 0:
+    print("The 'write' configuration variable needs to be greater than zero")
+    sys.exit(4)
+
 try:
     with open(cfg["filepath"], "w") as file:
         file.write("")
 except:
-    raise SystemExit("The specified file is not valid")
+    print("The 'filepath' configuration variable needs to be a valid filepath")
+    sys.exit(5)
 
 outputfile = cfg["filepath"]
 
