@@ -2,9 +2,14 @@
 
 set -eE
 
+available_network_ifc=`ls /sys/class/net`
+
 if [ -z $1 ]; then
     echo "You have to provide an interface to listen to"
     exit 2
+elif ! grep -q "^$1$" <<< $available_network_ifc ; then
+    echo "You have to specify an existing interface"
+    exit 3
 fi
 
 started_processes=$(mktemp)
