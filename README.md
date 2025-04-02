@@ -30,7 +30,7 @@ The second dataset is **a very large file of network flows from CESNET**. This d
 
 1. **Extract our desired columns**      
     There is a lot of column in the datasets, which were not needed. Only packet sizes and directions of the first 30 packets in each flow and TLS_SNI field were extracted. The TLS_SNI field contains a value used for annotation.
-2. **Remove duplicates and flow without any packets**           
+2. **Remove duplicates and flows without any packets**           
     Duplicates are removed using basic Pandas functions and every flow with first packet size set to 0 (or first packet direction set ot None, it is the same) is dropped
 3. **Select only packets with DST_PORT with the value 443**
     We are interested mainly in web services, which are accessible on port 443. So to filter out unneccesary DNS and stuff, we have to only pick the data on this port.
@@ -132,9 +132,14 @@ Then just do:
 sudo ./start_flowaggregator.sh <network_interface_name>
 ```
 
-### Exceptions and errors
+## Exceptions and errors
 
-You can enter invalid data into the config file. The script will simply tell you and force you to rewrite them          
+You can enter invalid data into the config file. The script will simply tell you and force you to rewrite them.         
+You can also specify a wrong interface name. The script probably wont crash, but will tell you, that the interface you specified is invalid and will not work properly. You then need to kill your script with CTRL+C and start it again with the proper interface.         
+
+## Shutting down the app
+
+The application is meant to be shut down with SIGINT or SIGTERM signal. Which means you can simply kill it with CTRL+C while it runs inside your terminal.  
 
 # Application diagram
 
@@ -163,7 +168,3 @@ All other modules used are also a part of the NEMEA project
 Training script for decision tree algorithms from Mgr. Mykyta Narusevych - *I decided not to publish this script here*         
 Scripts from Python for Data Science course from Netacad FEL - *I cant publish those scripts here*          
 Build a neural network in Python multi class classification - https://medium.com/luca-chuangs-bapm-notes/build-a-neural-network-in-python-multi-class-classification-e940f74bd899
-
-# Known Bugs and Imperfections
-
-When executing the start script multiple times, there may be several unirec filters running in the background. You can easily just kill them all.
