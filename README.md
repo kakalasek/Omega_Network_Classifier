@@ -13,7 +13,8 @@ It simply classifies 443 services only by first 30 packets from the communicatio
 # Directory Structure
 
 The **top directory** contains the setup and start application scripts         
-The **jupyter_scripts** directory contains the jupyter notebooks for training the model and processing of the data. It also contains two json files, *classes_mapping.json* and *classes.json*. The first file contains mapping of every class in this format *class_number: class_name*. The second containes containes keyword and classes to map to that keywords in this format *keyword: class_name*.              
+The **jupyter_scripts** directory contains the jupyter notebooks for training the model and processing of the data. It also contains two json files, *classes_mapping.json* and *classes.json*. The first file contains mapping of every class in this format *class_number: class_name*. The second containes containes keyword and classes to map to that keywords in this format *keyword: class_name*.          
+The **jupyter_scripts/unsuccessful** directory contains unsuccessful scripts and attempts. There are screenshots with unsuccessful model attempts and so. The attempts and why they were unsuccessful is explained at the end of documentation.              
 The **src** directory contains all the modules, models and also, for practical reasons, a copy of *classes.json* file. This file is used to convert the numerical prediction a to particular service. It is here, because the file path is more practical for the modules. All the models are in the *models* directory;
 
 Some models are too big for Github. Also some data may also be too big. I have thus put it onto this Google drive: https://drive.google.com/drive/folders/1XcOfXqXIrEK_SFA2j5aLiGlSPVSBf_c2?usp=drive_link          
@@ -31,8 +32,8 @@ The second dataset is **a very large file of network flows from CESNET**. This d
 1. **Extract our desired columns**      
     There is a lot of column in the datasets, which were not needed. Only packet sizes and directions of the first 30 packets in each flow and TLS_SNI field were extracted. The TLS_SNI field contains a value used for annotation.
 2. **Remove duplicates and flows without any packets**           
-    Duplicates are removed using basic Pandas functions and every flow with first packet size set to 0 (or first packet direction set ot None, it is the same) is dropped
-3. **Select only packets with DST_PORT with the value 443**
+    Duplicates are removed using basic Pandas functions and every flow with first packet size set to 0 (or first packet direction set to None, it is the same) is dropped
+3. **Select only packets with DST_PORT with the value 443**         
     We are interested mainly in web services, which are accessible on port 443. So to filter out unneccesary DNS and stuff, we have to only pick the data on this port.
 4. **Multiply packet directions and sizes**           
     In order to reflect the packet direction in the dataset, we need to multiply the values from the packet directions list with the packet sizes.
@@ -41,6 +42,8 @@ The second dataset is **a very large file of network flows from CESNET**. This d
     Define the classes. This is done by creating a simple dictionary, where keys are the string we will search for in the TLS_SNI field and values are the service names. A new column names *class* is defined and every value there is set to the *other* service class. Then a simple algorthim will try to find every key in the dataset and if it sees the key string inside the TLS SNI field, it will replace the *other* class with the value assigned to the the particular key inside the dictionary.         
 7. **Transform classes into numbers**           
     A simple dictionary mapping is created, which will be used for resolving the predictions of the models. Then, according to this dictionary, the *class* column values are replaced with the numbers
+
+**NOTE:** It is not mentioned in the steps, but to speed up training, StandartdScaler is also used on the features before fitting the model.
 
 ## Model training
 
@@ -114,7 +117,7 @@ sudo ./start_application_logger.sh <network_interface_name>
 ```
 
 You will probably need to wait a while until the system starts to log something, since Ipfixprobe first needs to catch some packets in order to return some flows.              
-After some time the system should start to log in this format: *TIMESTAMP,DST_IP,SRC_IP,CLASS*
+After some time the system should start to log in this format: *DST_IP,SRC_IP,TIMESTAMP,CLASS*
 
 ## Run with network aggregator
 
@@ -168,3 +171,10 @@ All other modules used are also a part of the NEMEA project
 Training script for decision tree algorithms from Mgr. Mykyta Narusevych - *I decided not to publish this script here*         
 Scripts from Python for Data Science course from Netacad FEL - *I cant publish those scripts here*          
 Build a neural network in Python multi class classification - https://medium.com/luca-chuangs-bapm-notes/build-a-neural-network-in-python-multi-class-classification-e940f74bd899
+
+# Unsuccessful attempts and dataset difficulties
+
+There has been an attempt to train a neural network for classification. Unfortunately its accuracy was not better or even similar to that of a decision tree algorhitm. All the attempts with the neural network shape, optimizer and all other parameters are mentioned in their respective subdirectories inside the *jupyter_scripts/unsuccessful* directory. There is also a funny example of evident overfitting. Also a script that was not really working, probably because of bad testing and training data handling.               
+
+Both datasets have one big problem. Because internet data varies a lot, there is a lot of different network traffic. The model classifies only some of that traffic. Which means that most of the traffic is labeled as *other* during training. This even more of a problem in case of the Cesnet dataset, which is much bigger, because about 80 or more percent of the traffic there is still labeled as *other*.            
+The models are thus biased quite a bit towards the *other* class. It is very apparent in case of neural networks, which require a lot of different data in order to work efficiently. These datasets thus were not suitable for them.
