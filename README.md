@@ -173,6 +173,10 @@ Training script for decision tree algorithms from Mgr. Mykyta Narusevych - *I de
 Scripts from Python for Data Science course from Netacad FEL - *I cant publish those scripts here*          
 Build a neural network in Python multi class classification - https://medium.com/luca-chuangs-bapm-notes/build-a-neural-network-in-python-multi-class-classification-e940f74bd899
 
+# Known bugs
+
+If you start with aggregation and kill the script immidiately, without giving it a chance to do something, it will return an error message and will get stuck. This is something related to pytrap library, so I cant really fix it at the moment.
+
 # Unsuccessful attempts and dataset difficulties
 
 There has been an attempt to train a neural network for classification. Unfortunately its accuracy was not better or even similar to that of a decision tree algorhitm. All the attempts with the neural network shape, optimizer and all other parameters are mentioned in their respective subdirectories inside the *jupyter_scripts/unsuccessful* directory. There is also a funny example of evident overfitting. Also a script that was not really working, probably because of bad testing and training data handling.               

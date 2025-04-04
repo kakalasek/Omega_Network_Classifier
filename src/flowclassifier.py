@@ -6,9 +6,9 @@ import pandas as pd
 import numpy as np
 import pickle
 import json
+import signal
 
 # Setup -------------------------------
-
 trap = pytrap.TrapCtx()
 trap.init(sys.argv, 1, 1)
 

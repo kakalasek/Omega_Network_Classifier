@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set -eE
 
 dnf install -y dnf-plugins-core
 

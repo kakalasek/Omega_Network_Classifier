@@ -4,6 +4,7 @@ import pytrap
 import sys
 import json
 import yaml
+import signal
 from ipaddress import ip_address
 
 # Methods ----------------------
@@ -35,23 +36,22 @@ def aggregate(rec, agg_dict: dict, write: bool, agg_file: str):
             json.dump(agg_dict, file)
         
 # Setup ---------------------------------
-
 with open("config.yaml", "r") as ymlfile:
     cfg = yaml.load(ymlfile)
 
 if not isinstance(cfg["write"], int):
     print("The 'write' configuration variable needs to be a number")
-    sys.exit(3)
+    sys.exit(1)
 elif cfg["write"] <= 0:
     print("The 'write' configuration variable needs to be greater than zero")
-    sys.exit(4)
+    sys.exit(1)
 
 try:
     with open(cfg["filepath"], "w") as file:
         file.write("")
 except:
     print("The 'filepath' configuration variable needs to be a valid filepath")
-    sys.exit(5)
+    sys.exit(1)
 
 outputfile = cfg["filepath"]
 
@@ -90,5 +90,3 @@ while True:
         write = cfg["write"]
 
 trap.finalize()
-
-    
