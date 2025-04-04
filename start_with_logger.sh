@@ -2,6 +2,11 @@
 
 set -eE
 
+if [ $EUID -ne 0 ]; then
+    echo "This script should be run as root"
+    exit 1
+fi
+
 available_network_ifc=`ls /sys/class/net`
 
 if [ -z $1 ]; then
