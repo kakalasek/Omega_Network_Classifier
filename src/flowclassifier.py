@@ -7,6 +7,8 @@ import numpy as np
 import pickle
 import json
 
+# Setup -------------------------------
+
 trap = pytrap.TrapCtx()
 trap.init(sys.argv, 1, 1)
 
@@ -26,6 +28,8 @@ with open("classes/classes_mapping.json", "r") as file:
     class_mapping =  json.load(file)
 
 loaded_model = pickle.load(open('models/network_classifier_cesnet_hgbt.dat', 'rb'))
+
+# Methods ---------------------------------
 
 def do_classification(rec):
     """Classifies the flow and sends data to trap output
@@ -53,7 +57,7 @@ def do_classification(rec):
 
         trap.send(output.getData(), 0)
 
-# Main loop
+# Main loop -----------------------------------
 
 while True:
     try:

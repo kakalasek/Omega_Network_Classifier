@@ -4,8 +4,9 @@ import pytrap
 import sys
 import json
 import yaml
-import os
 from ipaddress import ip_address
+
+# Methods ----------------------
 
 def aggregate(rec, agg_dict: dict, write: bool, agg_file: str):
     """This function aggregates the flow data into one dictionary file
@@ -33,6 +34,7 @@ def aggregate(rec, agg_dict: dict, write: bool, agg_file: str):
         with open(agg_file, "w") as file:
             json.dump(agg_dict, file)
         
+# Setup ---------------------------------
 
 with open("config.yaml", "r") as ymlfile:
     cfg = yaml.load(ymlfile)
@@ -63,7 +65,7 @@ rec = pytrap.UnirecTemplate(inputspec)
 json_agg = {}
 write = cfg["write"]
 
-# Main loop
+# Main loop --------------------------------------------
 
 print("Aggregation has started")
 
