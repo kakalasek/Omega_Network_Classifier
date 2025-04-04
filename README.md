@@ -138,7 +138,8 @@ sudo ./start_flowaggregator.sh <network_interface_name>
 ## Exceptions and errors
 
 You can enter invalid data into the config file. The script will simply tell you and force you to rewrite them.         
-You can also specify a wrong interface name. The script probably wont crash, but will tell you, that the interface you specified is invalid and will not work properly. You then need to kill your script with CTRL+C and start it again with the proper interface.         
+You can also specify a wrong interface name. The script knows which interface names are valid and will alert you.               
+If you try to run a script as normal user, not root, the script wont let you, because ipfixprobe needs to be run as root user.     
 
 ## Shutting down the app
 
